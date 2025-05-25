@@ -5,7 +5,7 @@ const searchRecipes = async (filters, page = 1, limit = 50) => {
   const values = [];
   let idx = 1;
 
-  // Filter by calories (stored as string like "389 kcal" in JSON, so extract number)
+  
   if (filters.calories) {
     const match = filters.calories.match(/(<=|>=|=|<|>)(\d+)/);
     if (match) {
@@ -17,21 +17,20 @@ const searchRecipes = async (filters, page = 1, limit = 50) => {
     }
   }
 
-  // Filter by title (partial match)
   if (filters.title) {
     queryBase += ` AND LOWER(title) LIKE LOWER($${idx})`;
     values.push(`%${filters.title}%`);
     idx++;
   }
 
-  // Filter by cuisine (partial match)
+  
   if (filters.cuisine) {
     queryBase += ` AND LOWER(cuisine) LIKE LOWER($${idx})`;
     values.push(`%${filters.cuisine}%`);
     idx++;
   }
 
-  // Filter by total_time
+
   if (filters.total_time) {
     const match = filters.total_time.match(/(<=|>=|=|<|>)(\d+)/);
     if (match) {
@@ -43,7 +42,7 @@ const searchRecipes = async (filters, page = 1, limit = 50) => {
     }
   }
 
-  // Filter by rating
+  
   if (filters.rating) {
     const match = filters.rating.match(/(<=|>=|=|<|>)([\d.]+)/);
     if (match) {
@@ -55,15 +54,14 @@ const searchRecipes = async (filters, page = 1, limit = 50) => {
     }
   }
 
-  // Get total count of filtered results
   const countQuery = `SELECT COUNT(*)${queryBase}`;
   const countResult = await pool.query(countQuery, values);
   const total = parseInt(countResult.rows[0].count);
 
-  // Calculate offset for pagination
+  
   const offset = (page - 1) * limit;
 
-  // Get paginated data
+  
   const dataQuery = `SELECT *${queryBase} ORDER BY rating DESC NULLS LAST, id ASC LIMIT $${idx} OFFSET $${idx + 1}`;
   values.push(limit, offset);
 

@@ -60,9 +60,9 @@ const loadData = async () => {
 
   try {
     await insertRecipes(cleaned);
-    console.log('🚀 All recipes inserted successfully.');
+    console.log(' All recipes inserted successfully.');
   } catch (err) {
-    console.error('❌ Error inserting recipes:', err.message);
+    console.error(' Error inserting recipes:', err.message);
   } finally {
     pool.end();
   }

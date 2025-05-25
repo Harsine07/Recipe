@@ -17,5 +17,5 @@ app.use('/api', recipeRoutes);
 createRecipesTable();
 
 app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port}`);
+  console.log(` Server running at http://localhost:${port}`);
 });

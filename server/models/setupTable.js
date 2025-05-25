@@ -1,4 +1,4 @@
-// models/setupTable.js
+
 const pool = require('../db');
 
 const createRecipesTable = async () => {
@@ -19,9 +19,9 @@ const createRecipesTable = async () => {
 
   try {
     await pool.query(query);
-    console.log('✅ Table "recipes" is ready');
+    console.log(' Table "recipes" is ready');
   } catch (err) {
-    console.error('❌ Error creating table:', err.message);
+    console.error(' Error creating table:', err.message);
   }
 };
 
